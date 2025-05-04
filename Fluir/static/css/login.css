@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  body {
+    background: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+  }
+  
+  .container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+  
+  .form-box {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+  }
+  
+  .form-box h1 {
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #222;
+  }
+  
+  label {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #cce1ff;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .senha-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .esqueceu {
+    font-size: 13px;
+    color: #2a60ff;
+    text-decoration: none;
+  }
+  
+  .senha-box {
+    position: relative;
+  }
+  
+  .senha-box i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+  }
+  
+  .btn-login {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #00695c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .cadastro-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .cadastro-link a {
+    color: #2a60ff;
+    text-decoration: none;
+  }
+  
