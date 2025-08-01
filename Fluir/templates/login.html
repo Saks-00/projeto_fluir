@@ -4,32 +4,88 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login</title>
-
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+  <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
-    <form class="form-box" method="POST">
+  <div class="container">
+    <form class="form-box" method="POST" action="/login">
       <h1>Login</h1>
-
       <label for="cpf">CPF</label>
-      <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" />
-
+      <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required />
       <div class="senha-label">
         <label for="senha">Senha</label>
         <a href="#" class="esqueceu">Esqueceu?</a>
       </div>
-
       <div class="senha-box">
-        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" />
+        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required />
         <i class="senha"></i>
       </div>
-
       <button type="submit" class="btn-login">Login</button>
-
+           
+      <!-- Mensagens substituindo flash messages -->
+      <div id="mensagens" class="flash-messages" style="display: none;">
+        <div id="mensagem-texto" class="flash-message"></div>
+      </div>
+           
       <p class="cadastro-link">
-        Não tem uma conta? <a href="{{ url_for('pagina_cadastro') }}">Cadastre-se</a>
+        Não Tem Uma Conta? <a href="/cadastro">Cadastre-Se</a>
+      </p>
+           
+      <!-- Link discreto para admin -->
+      <p class="admin-link">
+        <small><a href="/admin/login" style="color: #666;">Acesso Administrativo</a></small>
       </p>
     </form>
   </div>
+
+  <script>
+    // Substituir flash messages por JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const erro = urlParams.get('erro');
+      const sucesso = urlParams.get('sucesso');
+      const mensagem = urlParams.get('msg');
+      
+      const mensagensDiv = document.getElementById('mensagens');
+      const mensagemTexto = document.getElementById('mensagem-texto');
+      
+      if (erro) {
+        mensagemTexto.textContent = decodeURIComponent(erro);
+        mensagemTexto.className = 'flash-message error';
+        mensagensDiv.style.display = 'block';
+      } else if (sucesso) {
+        mensagemTexto.textContent = decodeURIComponent(sucesso);
+        mensagemTexto.className = 'flash-message success';
+        mensagensDiv.style.display = 'block';
+      } else if (mensagem) {
+        mensagemTexto.textContent = decodeURIComponent(mensagem);
+        mensagemTexto.className = 'flash-message';
+        mensagensDiv.style.display = 'block';
+      }
+
+      // Limpar URL após mostrar mensagem
+      if (erro || sucesso || mensagem) {
+        setTimeout(() => {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }, 100);
+      }
+    });
+
+    // Validação básica do formulário
+    document.querySelector('.form-box').addEventListener('submit', function(e) {
+      const cpf = document.getElementById('cpf').value;
+      const senha = document.getElementById('senha').value;
+      
+      if (!cpf || !senha) {
+        e.preventDefault();
+        const mensagensDiv = document.getElementById('mensagens');
+        const mensagemTexto = document.getElementById('mensagem-texto');
+        
+        mensagemTexto.textContent = 'Por favor, preencha todos os campos.';
+        mensagemTexto.className = 'flash-message error';
+        mensagensDiv.style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>

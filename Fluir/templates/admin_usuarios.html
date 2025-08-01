@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Usuários - Fluir</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+        .btn-small {
+            padding: 5px 10px;
+            font-size: 0.8em;
+        }
+        .btn-danger {
+            background-color: #ff4d4d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciar Usuários</h1>
+               
+        <div id="mensagens" class="flash-messages" style="display: none;">
+            <p id="mensagem-texto"></p>
+        </div>
+               
+        <div class="admin-actions">
+            <a href="/admin/usuarios/adicionar" class="btn">Adicionar Novo Usuário</a>
+            <a href="/admin/dashboard" class="btn">Voltar ao Painel</a>
+        </div>
+
+               
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Tipo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-usuarios">
+                <!-- Usuários serão carregados via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Substituir flash messages por JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mensagem = urlParams.get('msg');
+            
+            if (mensagem) {
+                const mensagensDiv = document.getElementById('mensagens');
+                const mensagemTexto = document.getElementById('mensagem-texto');
+                
+                mensagemTexto.textContent = decodeURIComponent(mensagem);
+                mensagensDiv.style.display = 'block';
+            }
+
+            // Carregar usuários (exemplo com dados estáticos - você pode fazer uma requisição AJAX)
+            carregarUsuarios();
+        });
+
+        function carregarUsuarios() {
+            // Exemplo de dados estáticos - substitua por uma requisição AJAX real
+            const usuarios = [
+                {id: 1, nome: 'João Silva', cpf: '123.456.789-00', tipo: 'cliente'},
+                {id: 2, nome: 'Maria Santos', cpf: '987.654.321-00', tipo: 'motorista'}
+            ];
+
+            const tbody = document.getElementById('tabela-usuarios');
+            tbody.innerHTML = '';
+
+            usuarios.forEach(usuario => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${usuario.id}</td>
+                    <td>${usuario.nome}</td>
+                    <td>${usuario.cpf}</td>
+                    <td>${usuario.tipo}</td>
+                    <td class="actions">
+                        <a href="/editar_usuario/${usuario.id}" class="btn btn-small">Editar</a>
+                        <form method="POST" action="/excluir_usuario/${usuario.id}" onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');" style="display: inline;">
+                            <button type="submit" class="btn btn-small btn-danger">Excluir</button>
+                        </form>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    </script>
+</body>
+</html>

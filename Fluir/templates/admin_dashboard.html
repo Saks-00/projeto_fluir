@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Fluir</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Painel Administrativo</h1>
+               
+        <div id="mensagens" class="flash-messages" style="display: none;">
+            <p id="mensagem-texto"></p>
+        </div>
+               
+        <div class="admin-menu">
+            <a href="/admin/usuarios" class="btn">Gerenciar Usuários</a>
+            <a href="/admin/adicionar" class="btn">Adicionar Administrador</a>
+            <a href="/admin/logout" class="btn btn-danger">Sair</a>
+        </div>
+
+    </div>
+
+    <script>
+        // Substituir flash messages por JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mensagem = urlParams.get('msg');
+            
+            if (mensagem) {
+                const mensagensDiv = document.getElementById('mensagens');
+                const mensagemTexto = document.getElementById('mensagem-texto');
+                
+                mensagemTexto.textContent = decodeURIComponent(mensagem);
+                mensagensDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

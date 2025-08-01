@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login de Administrador - Fluir</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Login de Administrador</h1>
+               
+        <div id="mensagens" class="flash-messages" style="display: none;">
+            <p id="mensagem-texto"></p>
+        </div>
+               
+        <form method="POST" action="/admin/login">
+            <div class="form-group">
+                <label for="cpf">CPF de Administrador:</label>
+                <input type="text" id="cpf" name="cpf" required>
+            </div>
+                       
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required>
+            </div>
+                       
+            <button type="submit" class="btn">Entrar como Administrador</button>
+        </form>
+               
+        <div class="links">
+            <a href="/login">Voltar para login de usuário</a>
+        </div>
+    </div>
+
+    <script>
+        // Substituir flash messages por JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mensagem = urlParams.get('msg');
+            
+            if (mensagem) {
+                const mensagensDiv = document.getElementById('mensagens');
+                const mensagemTexto = document.getElementById('mensagem-texto');
+                
+                mensagemTexto.textContent = decodeURIComponent(mensagem);
+                mensagensDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
